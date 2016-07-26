@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import "MessageUI/MFMailComposeViewController.h"
 #import "Contato.h"
 
 @interface GerenciadorDeAcoes : NSObject<UIActionSheetDelegate>
