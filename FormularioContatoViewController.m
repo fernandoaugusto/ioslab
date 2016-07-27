@@ -43,6 +43,9 @@
         if (!self.contato) {
             self.contato = [Contato new];
         }
+        if ([self.botaoFoto backgroundImageForState:UIControlStateNormal]) {
+            self.contato.foto = [self.botaoFoto backgroundImageForState:UIControlStateNormal];
+        }
         
         self.contato.nome = self.nome.text;
         self.contato.telefone = self.telefone.text;
@@ -65,6 +68,11 @@
             self.email.text = self.contato.email;
             self.endereco.text = self.contato.endereco;
             self.site.text = self.contato.site;
+            
+            if (self.contato.foto) {
+                [self.botaoFoto setBackgroundImage:self.contato.foto forState:UIControlStateNormal];
+                [self.botaoFoto setTitle:nil forState:UIControlStateNormal];
+            }
         
         }
     }
@@ -80,7 +88,33 @@
     }
 
 
+    -(IBAction) selecionaFoto: (id) sender {
+        
+        if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+            
+            
+            
+        } else {
+        
+            UIImagePickerController* picker = [UIImagePickerController new];
+            picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+            picker.allowsEditing = YES;
+            picker.delegate = self;
+            [self presentViewController:picker animated:YES completion:nil];
+            
+        }
+        
+    }
 
+
+    -(void) imagePickerController:(UIImagePickerController*) picker didFinishPickingMediaWithInfo:(NSDictionary*) info {
+    
+        UIImage* imagemSelecionada = [info valueForKey:UIImagePickerControllerEditedImage];
+        [self.botaoFoto setBackgroundImage:imagemSelecionada forState:UIControlStateNormal];
+        [self.botaoFoto setTitle:nil forState:UIControlStateNormal];
+        [picker dismissViewControllerAnimated:YES completion:nil];
+    
+    }
 
 
 
