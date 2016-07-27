@@ -92,7 +92,12 @@
         
         if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
             
-            
+            UIActionSheet* sheet = [[UIActionSheet alloc] initWithTitle:@"Escolha a foto do contato"
+                                                                delegate: self
+                                                      cancelButtonTitle:@"Cancelar"
+                                                 destructiveButtonTitle:nil
+                                                      otherButtonTitles:@"Tirar foto", @"Escolher da biblioteca", nil];
+            [sheet showInView:self.view];
             
         } else {
         
@@ -115,6 +120,32 @@
         [picker dismissViewControllerAnimated:YES completion:nil];
     
     }
+
+    -(void) actionSheet:(UIActionSheet*) actionSheet didDismissWithButtonIndex:(NSInteger) buttonIndex {
+        
+        UIImagePickerController* picker = [UIImagePickerController new];
+        picker.delegate = self;
+        picker.allowsEditing = YES;
+        [self presentViewController:picker animated:YES completion:nil];
+     
+        switch (buttonIndex) {
+                
+            case 0:
+                picker.sourceType = UIImagePickerControllerSourceTypeCamera;
+                break;
+            case 1:
+                picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+                break;
+            default:
+                return;
+                
+        }
+        
+        [self presentViewController:picker animated:YES completion:nil];
+        
+    }
+
+
 
 
 
