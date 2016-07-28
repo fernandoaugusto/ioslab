@@ -7,7 +7,7 @@
 //
 
 #import "AppDelegate.h"
-#import "ListaContatosViewController.h"
+
 
 @interface AppDelegate ()
 
@@ -21,15 +21,24 @@
     
     UIScreen* telaDoAparelho = [UIScreen mainScreen];
     CGRect retangulo = [telaDoAparelho bounds];
-    ListaContatosViewController* lista = [ListaContatosViewController new];
+
     self.window = [[UIWindow alloc] initWithFrame: retangulo];
+    
+    ListaContatosViewController* lista = [ListaContatosViewController new];
     
     UINavigationController* nav = [[UINavigationController alloc] initWithRootViewController: lista];
     
+    ContatosNoMapaViewController* contatosMapa = [ContatosNoMapaViewController new];
     
-    self.window.rootViewController = nav;
+    UINavigationController* navMapa = [[UINavigationController alloc] initWithRootViewController:contatosMapa];
     
-    /* [self.window makeKeyAndVisible]; */ /*não precisa colocar caso não tenha concorrencia de telas*/
+    
+    UITabBarController* tabBarController = [UITabBarController new];
+    tabBarController.viewControllers = @[nav, navMapa];
+    
+    self.window.rootViewController = tabBarController;
+    
+    [self.window makeKeyAndVisible];
     
     return YES;
 }
