@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "Contato.h"
 #import "ContatoDAO.h"
+#import <CoreLocation/CoreLocation.h>
 
 
 @protocol FormularioContatoViewControllerDelegate <NSObject>
@@ -36,9 +37,16 @@
 
     @property IBOutlet UIButton* botaoFoto;
 
+    @property IBOutlet UITextField* latitude;
+
+    @property IBOutlet UITextField* longitude;
+
+
     -(IBAction) selecionaFoto:(id) sender;
 
-    
+    -(IBAction) buscarCoordenadas:(id) sender;
+
+
 
 
 @end
